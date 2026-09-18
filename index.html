@@ -67,7 +67,7 @@ I would like to know what visitors think about my website.
 Please complete the form below.
 </p>
 
-<form>
+<form id="feedbackForm">
 
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name" required>
@@ -78,11 +78,11 @@ Please complete the form below.
     <br><br>
 
     <label for="topic">What interested you most?</label><br>
-    <select id="topic" name="topic">
-        <option value="html">HTML</option>
-        <option value="css">CSS</option>
-        <option value="technology">Technology</option>
-    </select>
+<select id="topic" name="topic">
+    <option value="HTML">HTML</option>
+    <option value="CSS">CSS</option>
+    <option value="Technology">Technology</option>
+</select>
     <br><br>
 
     <label for="feedback">Your feedback:</label><br>
@@ -93,6 +93,21 @@ Please complete the form below.
 
 </form>
 
-</body>
+<p id="formMessage"></p> 
 
+<script>
+document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let topic = document.getElementById("topic").value;
+
+    document.getElementById("formMessage").textContent =
+        "Thank you, " + name + "! Your feedback about " + topic + " has been received.";
+
+});
+</script>
+
+</body>
 </html>
