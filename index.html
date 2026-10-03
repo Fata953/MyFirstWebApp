@@ -95,6 +95,28 @@ Please complete the form below.
 
 <p id="formMessage"></p> 
 
+<h2>Learning Inspiration</h2>
+
+<p>
+    Click the button below to retrieve a random quote from an external API.
+</p>
+
+<div id="quoteSection">
+
+    <button type="button" id="quoteButton">
+        Get a New Quote
+    </button>
+
+    <p id="quoteText">
+        Your quote will appear here.
+    </p>
+
+    <p id="quoteAuthor"></p>
+
+    <p id="apiStatus"></p>
+
+</div>
+
 <script>
 document.getElementById("feedbackForm").addEventListener("submit", function(event) {
 
@@ -107,6 +129,44 @@ document.getElementById("feedbackForm").addEventListener("submit", function(even
         "Thank you, " + name + "! Your feedback about " + topic + " has been received.";
 
 });
+</script>
+
+<script>
+
+const quoteButton = document.getElementById("quoteButton");
+const quoteText = document.getElementById("quoteText");
+const quoteAuthor = document.getElementById("quoteAuthor");
+const apiStatus = document.getElementById("apiStatus");
+
+quoteButton.addEventListener("click", async function() {
+
+    apiStatus.textContent = "Loading quote...";
+
+    try {
+        const response = await fetch(
+            "https://api.freeapi.app/api/v1/public/quotes/random"
+        );
+
+        if (!response.ok) {
+            throw new Error("The API request was unsuccessful.");
+        }
+
+        const result = await response.json();
+
+        quoteText.textContent = '"' + result.data.content + '"';
+        quoteAuthor.textContent = "— " + result.data.author;
+
+        apiStatus.textContent = "";
+
+    } catch (error) {
+        apiStatus.textContent =
+            "Sorry, the quote could not be loaded. Please try again.";
+
+        console.error(error);
+    }
+
+});
+
 </script>
 
 </body>
