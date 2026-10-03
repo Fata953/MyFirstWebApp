@@ -143,8 +143,9 @@ quoteButton.addEventListener("click", async function() {
     apiStatus.textContent = "Loading quote...";
 
     try {
+
         const response = await fetch(
-            "https://api.freeapi.app/api/v1/public/quotes/random"
+            "https://dummyjson.com/quotes/random"
         );
 
         if (!response.ok) {
@@ -153,12 +154,13 @@ quoteButton.addEventListener("click", async function() {
 
         const result = await response.json();
 
-        quoteText.textContent = '"' + result.data.content + '"';
-        quoteAuthor.textContent = "— " + result.data.author;
+        quoteText.textContent = '"' + result.quote + '"';
+        quoteAuthor.textContent = "— " + result.author;
 
         apiStatus.textContent = "";
 
     } catch (error) {
+
         apiStatus.textContent =
             "Sorry, the quote could not be loaded. Please try again.";
 
